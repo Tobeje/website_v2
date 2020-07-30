@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  background-color: rgb(250, 250, 250);
+  position: relative;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 85px;
+  padding-bottom: 80px;
+}
+
+@media (max-width: 770px) {
+  .container {
+    padding-top: 65px;
+  }
+}

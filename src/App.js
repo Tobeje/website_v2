@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Navigation, Footer } from './components';
+import { Contact, Home, Projects } from './views';
+import styles from './App.module.css';
 
-function App() {
+const Links = [
+  {
+    name: 'Home',
+    link: '/',
+  },
+  {
+    name: 'Projects',
+    link: '/projects',
+  },
+  {
+    name: 'Contact',
+    link: '/contact',
+  },
+];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navigation Links={Links} />
+      {/* 
+				<FixedNavigation /> A <Switch> looks through its children <Route>s and
+                  renders the first one that matches the current URL. */}
+      <div className={styles.container}>
+        <Switch className={styles.content}>
+          <Route path="/contact">
+            <Contact />
+          </Route>
+          <Route path="/projects">
+            <Projects />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+      <Footer />
+    </Router>
   );
-}
-
+};
 export default App;
