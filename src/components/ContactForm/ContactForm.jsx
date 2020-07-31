@@ -8,14 +8,14 @@ import {
   TextField,
 } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { DropzoneArea } from 'material-ui-dropzone';
+import { sendMail } from '../../api';
 import styles from './ContactForm.module.css';
 
 const MyButton = styled(Button)({
-  background: 'linear-gradient(to right, #4facfe 0%, #00f2fe 100%)',
+  background: 'linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%)',
   border: 0,
   borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(0, 190, 255, .3)',
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, 0.3)',
   color: 'white',
   height: 48,
   padding: '0 30px',
@@ -23,28 +23,29 @@ const MyButton = styled(Button)({
 });
 
 class ContactForm extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       lastName: '',
       firstName: '',
       mail: '',
       phone: '',
       text: '',
+      mailSent: false,
+      error: null,
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    const mail = event.target.value;
-    this.setState({ mail });
+    this.setState({ mail: event.target.value });
   }
 
   handleSubmit() {
-    console.log(this.state);
+    sendMail(this.state);
   }
 
   render() {
-    const { mail } = this.state;
     return (
       <div className={styles.items}>
         <div className={styles.container}>
@@ -78,6 +79,10 @@ class ContactForm extends React.Component {
                         label="Lastname"
                         variant="outlined"
                         type="text"
+                        value={this.state.lastName}
+                        onChange={(e) => {
+                          this.setState({ lastName: e.target.value });
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -88,6 +93,10 @@ class ContactForm extends React.Component {
                         label="Firstname"
                         variant="outlined"
                         type="text"
+                        value={this.state.firstName}
+                        onChange={(e) => {
+                          this.setState({ firstName: e.target.value });
+                        }}
                       />
                     </Grid>
                   </Grid>
@@ -100,12 +109,19 @@ class ContactForm extends React.Component {
                     alignItems="center"
                   >
                     <Grid item xs={12} md={4}>
-                      <TextField
+                      <TextValidator
                         fullWidth
                         id="outlined-basic"
                         label="Phone"
                         variant="outlined"
                         type="tel"
+                        validators={[
+                          'matchRegexp:^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$',
+                        ]}
+                        value={this.state.phone}
+                        onChange={(e) => {
+                          this.setState({ phone: e.target.value });
+                        }}
                       />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -144,6 +160,10 @@ class ContactForm extends React.Component {
                         multiline
                         rows={4}
                         variant="outlined"
+                        value={this.state.text}
+                        onChange={(e) => {
+                          this.setState({ text: e.target.value });
+                        }}
                       />
                     </Grid>
                   </Grid>
@@ -154,7 +174,7 @@ class ContactForm extends React.Component {
                     direction="row"
                     justify="center"
                     alignItems="center"
-                  ></Grid>
+                  />
 
                   <Grid
                     container
