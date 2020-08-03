@@ -1,11 +1,11 @@
 /* eslint-disable import/named */
 import React from 'react';
-import { Configurator } from '../components';
+import { ProjectList } from '../components';
 
 const Projects = () => {
   return (
     <div style={{ width: '100%' }}>
-      <Configurator></Configurator>
+      <ProjectList></ProjectList>
     </div>
   );
 };
