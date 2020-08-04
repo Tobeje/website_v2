@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://marcel-schmager.com/sendMail';
+const url = 'http://api.marcel-schmager.com/api/sendMail';
 const posts = [
   {
     id: 1,
