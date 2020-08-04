@@ -5,21 +5,21 @@ import cx from 'classnames';
 import Button from '@material-ui/core/Button';
 import styles from './Nav.module.css';
 
-const Item = ({ name, link }) => {
-  return (
-    <li>
-      <Button>
-        <Link to={link} className={cx(styles.link)}>
-          {name}
-        </Link>
-      </Button>
-    </li>
-  );
+const Item = ({ name, link, handleLinkChanged }) => {
+	return (
+		<li>
+			<Button>
+				<Link to={link} className={cx(styles.link)} onClick={handleLinkChanged}>
+					{name}
+				</Link>
+			</Button>
+		</li>
+	);
 };
 
 Item.propTypes = {
-  name: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	link: PropTypes.string.isRequired
 };
 
 export default Item;
